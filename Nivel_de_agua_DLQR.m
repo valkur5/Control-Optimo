@@ -30,7 +30,7 @@ referencia=1; %%altura en metros del tanque 2
 
 %%DLQR
 %%Primero discretizamos el sistema como:
-sys_D=c2d(sys,h,'zoh');
+sys_D=c2d(sys,Ts,'zoh');
 Ad  = sys_D.a;
 Bd  = sys_D.b;
 Ctd = sys_D.c;
