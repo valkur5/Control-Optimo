@@ -39,15 +39,19 @@ Dd  = sys_D.d;
 A_ampd=[Ad zeros(2,1); -Ctd*Ad 1]
 B_ampd=[Bd;-Ctd*Bd]
 
-Qd  = diag([10 .1 100])
-Rd   = 1
+Qd  = diag([1 1 1])
+Rd   = 100
+
+
 Kd=dlqr(A_ampd,B_ampd,Qd,Rd);
 psi=0;
 Y(1)=0;
 u1(1)=0;
 
 for ki=1:muestras
+  psi=psi+(referencia-h2(i));
   u1(ki)=-Kd*([X;psi]);
+
   for kii=1:Ts/h
     u(i)=u1(ki);
 
@@ -55,7 +59,9 @@ for ki=1:muestras
     h1_p=(h2(i)-h1(i))/A1*R1+u(i)/A1;
     h2(i+1)=h2(i)+h*h2_p;
     h1(i+1)=h1(i)+h*h1_p;
-    psi=psi+h*(referencia-h2(i));
+
+
+
     X(1)=h1(i);X(2)=h2(i);
     i=i+1;
   endfor
