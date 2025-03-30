@@ -3,7 +3,7 @@
 
 Aquí se subirán y adjuntarán todos los scripts, imagenes y conclusiones de los trabajos prácticos propuestos por la cátedra.
 
-Alumno: Nieva Miguel, Pedro Valentin
+Alumno: _**Nieva Miguel, Pedro Valentin**_
 ## Índice
 
 - TP1: Controlador PID – Asignación de polos - LQR
