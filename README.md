@@ -1,12 +1,23 @@
 
-# Simulación en tiempo discreto
+# Control Optimo
 
-En el archivo adjunto se encuentra el código creado para la simulación en tiempo discreto del sistema propuesto, sin embargo tengo diferentes dudas debido al resultado que estoy obteniendo. 
+Aquí se subirán y adjuntarán todos los scripts, imagenes y conclusiones de los trabajos prácticos propuestos por la cátedra.
 
-El código lo construí basándome en la implementación que realizamos en la materia "Teoría de control 2" cuando usamos controladores en tiempo discreto.
+Alumno: Nieva Miguel, Pedro Valentin
+## Índice
 
-1- ¿Hay algo malo con la lógica de mi código?
+- TP1: Controlador PID – Asignación de polos - LQR
+  
+  -**Ejercicio 1**: Control de un nivel de agua
+    
+  
+  -**Ejercicio 2**: Control de pendulo invertido
 
-2- Si es así, ¿existe alguna referencia o bibliografía que pueda consultar sobre la realización en código de estos sistemas en tiempo discreto de manera más intuitiva?
 
-Desde ya muchas gracias.
+
+## Documentacion
+
+Aquí se adjuntarán los enlaces que van directamente a los informes correspondientes.
+
+[TP1](https://github.com/valkur5/Control-Optimo/blob/main/TP1/Trabajo%20Pr%C3%A1ctico%20N%C2%B01%20-%20Control%20%C3%B3ptimo%20-%20Nieva%20Miguel%20Pedro%20Valentin.pdf)
+
