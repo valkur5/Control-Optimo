@@ -44,5 +44,5 @@ Aquí se adjuntarán los enlaces que van directamente a los informes correspondi
 
 [TP1](https://github.com/valkur5/Control-Optimo/blob/main/TP1/Trabajo%20Pr%C3%A1ctico%20N%C2%B01%20-%20Control%20%C3%B3ptimo%20-%20Nieva%20Miguel%20Pedro%20Valentin.pdf)
 
-[TP3](#)
+[TP3](https://github.com/valkur5/Control-Optimo/blob/main/TP3/Trabajo%20Pr%C3%A1ctico%20N%C2%B03_%20Procesos%20estoc%C3%A1sticos%20y%20transformada%20de%20Fourier.pdf)
 
