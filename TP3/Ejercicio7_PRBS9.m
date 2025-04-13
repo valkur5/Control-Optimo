@@ -16,6 +16,6 @@ fixx = xcorr(y,y);
 SxM=fft(fixx(N:2*N-1));
 
 figure 1;
-subplot(3,1,1);plot(y,"lineWidth",2); title("PRBS9");ylim([-1.2 1.2]),xlim([0 30]); grid on;
-subplot(3,1,2);plot(fixx(N:2*N-1));title('Autocorrelación de x'); xlabel('Tiempo tao'); xlim([0 30]);grid on;
+subplot(3,1,1);plot(y,"lineWidth",2); title("PRBS9");ylim([-1.2 1.2]), grid on;
+subplot(3,1,2);plot(fixx(N:2*N-1));title('Autocorrelación de x'); xlabel('Tiempo tao'); grid on;
 subplot(3,1,3);semilogx(20*log10(abs(SxM(1:N/2))),'.k');xlabel('Pulsación en rad por seg');title('Módulo de F(w) en dB'); grid on;
