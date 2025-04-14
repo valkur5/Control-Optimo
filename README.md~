@@ -37,12 +37,6 @@ Alumno: _**Nieva Miguel, Pedro Valentin**_
 
 
   -**Ejercicio 8**: Demostración de intercorrelación de entrada y salida
-
-- TP4: Identificación de sistemas mediante modelos lineales
-  
-  -**Ejercicio1**: Determinar la función de transferencia utilizando ruido blanco
-  
-  -**Ejercicio2**: Determinar la función de transferencia utilizando PRBS7 y PRBS15
   
 ## Documentacion
 
@@ -52,4 +46,3 @@ Aquí se adjuntarán los enlaces que van directamente a los informes correspondi
 
 [TP3](https://github.com/valkur5/Control-Optimo/blob/main/TP3/Trabajo%20Pr%C3%A1ctico%20N%C2%B03_%20Procesos%20estoc%C3%A1sticos%20y%20transformada%20de%20Fourier.pdf)
 
-[TP4](#)
