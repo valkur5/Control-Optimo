@@ -4,8 +4,12 @@ clear all; close all; clc
 
 fs = 1000; t_max = 10; sigma = 1;
 t = 0:1/fs:t_max; N = length(t);
+
+%%Generación de ruido blanco
 x = sigma * randn(1, N);
+
 phi_xx=0;tau=0;
+
 [phi_xx, lags] = xcorr(x, 'biased'); tau = lags / fs;
 S_xx = fft(phi_xx); f = (-N/2:N/2-1)*(fs/N);
 figure;
