@@ -32,11 +32,17 @@ Alumno: _**Nieva Miguel, Pedro Valentin**_
 
 - TP4: Identificación de sistemas mediante modelos lineales
   
-  -**Ejercicio1**: Determinar la función de transferencia utilizando ruido blanco
+  -**Ejercicio 1**: Determinar la función de transferencia utilizando ruido blanco
   
-  -**Ejercicio2**: Determinar la función de transferencia utilizando PRBS7 y PRBS15
+  -**Ejercicio 2**: Determinar la función de transferencia utilizando PRBS7 y PRBS15
 
 - TP5: Mínimos cuadrados para la identificación de sistemas lineales
+
+- TP6: Modelos de estado para sistemas estocásticos de tiempo discreto
+
+  -**Ejercicio 1**: Péndulo invertido, LQR y LQG, con 5 ruidos diferentes 
+
+  -**Ejercicio 2**: Avión, LQR y LQG, con 5 ruidos diferentes
 
 ## Documentacion
 
@@ -49,3 +55,5 @@ Aquí se adjuntarán los enlaces que van directamente a los informes correspondi
 [TP4](https://github.com/valkur5/Control-Optimo/blob/main/TP4/TP4%20-%20Identificaci%C3%B3n%20de%20sistemas%20mediante%20modelos%20lineales.pdf)
 
 [TP5](https://github.com/valkur5/Control-Optimo/blob/main/TP5/TP5%20-%20Minimos%20cuadrados%20para%20la%20identificacion%20de%20sistemas%20lineales.pdf)
+
+[TP6](#)
