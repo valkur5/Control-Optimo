@@ -66,4 +66,4 @@ Aquí se adjuntarán los enlaces que van directamente a los informes correspondi
 
 [TP6](https://github.com/valkur5/Control-Optimo/blob/main/TP6/TP6_Modelos%20de%20estado%20para%20sistemas%20estocasticos%20de%20tiempo%20discreto.pdf)
 
-[TP7](#)
+[TP7](https://github.com/valkur5/Control-Optimo/blob/main/TP7/TP7_Controlador%20con%20estimacion%20de%20estados.pdf)
