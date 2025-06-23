@@ -10,7 +10,7 @@ clear all; pkg load control;
 TamanioFuente=14;
 randn('state',1);
 Realizaciones=1; %Cantidad de realizaciones para el Monte Carlo.
-Ts=0.01;
+Ts=0.1;
 
 ##----- Por consigna, Sigma debe ser 0, 0.01, 0.02, 0.05, 0.1 -----##
 sigma= 0.01
@@ -89,7 +89,7 @@ a3=-A_controlable(4,2);
 a2=-A_controlable(4,3);
 a1=-A_controlable(4,4);
 
-q1=1e1;q2=1e0;q3=1e4;q4=1e4;
+q1=1e1;q2=1e0;q3=1e3;q4=1e2;
 R=1e0;
 
 p1=.5*(-4*a4*R+sqrt((4*a4*R)^2+16*q1*R)); %%Ec 7-80
