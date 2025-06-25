@@ -51,7 +51,14 @@ Alumno: _**Nieva Miguel, Pedro Valentin**_
   -**Ejercicio 2**: Dividir el tiempo en 3 partes; empezar con un ruido fijo, luego duplicarlo, y luego volver al ruido inicial
 
   -**Ejercicio 3**: Comparar los funcionales de costos utilizando 50 realizaciones
- 
+
+- TP8: Control vía HJB con estimación de estados
+
+  -**Ejercicio 1**: Modelo del péndulo invertido. Implementar un control óptimo con HJB y el estimador de Kalman, con y sin ruido.
+
+  -**Ejercicio 2**: Modelo del péndulo invertido. Implementar el controlador anterior con condiciones iniciales de $ \pm \pi $.
+
+  -**Ejercicio 3**: Modelo del Avión. Implementar un control óptimo con HJB y el estimador de Kalman, con y sin ruido
 ## Documentacion
 
 Aquí se adjuntarán los enlaces que van directamente a los informes correspondientes.
@@ -67,3 +74,5 @@ Aquí se adjuntarán los enlaces que van directamente a los informes correspondi
 [TP6](https://github.com/valkur5/Control-Optimo/blob/main/TP6/TP6_Modelos%20de%20estado%20para%20sistemas%20estocasticos%20de%20tiempo%20discreto.pdf)
 
 [TP7](https://github.com/valkur5/Control-Optimo/blob/main/TP7/TP7_Controlador%20con%20estimacion%20de%20estados.pdf)
+
+[TP8](https://github.com/valkur5/Control-Optimo/blob/main/TP8/TP8_Control%20via%20HJB%20con%20estimacion%20de%20estados.pdf)
