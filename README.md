@@ -56,7 +56,7 @@ Alumno: _**Nieva Miguel, Pedro Valentin**_
 
   -**Ejercicio 1**: Modelo del péndulo invertido. Implementar un control óptimo con HJB y el estimador de Kalman, con y sin ruido.
 
-  -**Ejercicio 2**: Modelo del péndulo invertido. Implementar el controlador anterior con condiciones iniciales de $ \pm \pi $.
+  -**Ejercicio 2**: Modelo del péndulo invertido. Implementar el controlador anterior con condiciones iniciales de +-pi (+- 90°).
 
   -**Ejercicio 3**: Modelo del Avión. Implementar un control óptimo con HJB y el estimador de Kalman, con y sin ruido
 ## Documentacion
