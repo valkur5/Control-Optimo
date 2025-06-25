@@ -2,21 +2,20 @@
 ## Autor: Pedro Valentin, Nieva Miguel
 ## Consignas
 ## Implementar un controlador por la ecuación de HBJ con el estimador de Kalman
-## para el caso del péndulo invertido
-## Luego intentar estabilizar en equilibrio inestable partiendo de +-pi
+## para el caso del Avión
+
 clear all; pkg load control;
 
 ##  Variables de simulacion
 TamanioFuente=14;
 randn('state',1);
-Realizaciones=30; %Cantidad de realizaciones para el Monte Carlo.
-Ts=0.1;
-colorc='k'
+Realizaciones=3; %Cantidad de realizaciones para el Monte Carlo.
+Ts=0.01;
 
 ##----- Sigma determina la varianza del ruido -----##
-sigma= 1e-5 %%Ruido nulo para no interferir con el sistema
-##sigma= 0.05
-kmax=300;
+sigma= 1e-5; colorc='k' %%Ruido nulo para no interferir con el sistema
+##sigma= 0.05; colorc='r'
+kmax=6000;
 sQ=sigma; %Covarianza del ruido de estado Sigma=sqrt(sQ)
 sR=sigma; %Covarianza del ruido de medicion sigma=sqrt(sR)
 F_=sQ*eye(4);
@@ -24,28 +23,29 @@ G_=sR*eye(2);
 I=eye(4);
 
 ##Sistema
-m=.1;Fricc=0.1; long=0.6;g=9.8;M=.5;
+a=0.07; w=9; b=5; c=150;
 
-alfa(1)=-pi;
-x=[0;0;alfa(1);0];
+altura(1)=500;
+x=[0;0;0;altura(1)];
 x0=x;
 
-p=zeros(Realizaciones,kmax);
-p_p=zeros(Realizaciones,kmax);
 alfa=zeros(Realizaciones,kmax);
-omega=zeros(Realizaciones,kmax);
+fi=zeros(Realizaciones,kmax);
+fi_p=zeros(Realizaciones,kmax);
+altura=zeros(Realizaciones,kmax);
 
-p(1)=x(1); p_p(1)=x(2); alfa(1)=x(3); omega(1)=x(4);
-Mat_Ac=[0 1 0 0;
-        0 -Fricc/M -m*g/M 0;
-        0 0 0 1;
-        0 Fricc/(long*M) g*(m+M)/(long*M) 0];
-Mat_Bc=[0;
-        1/M;
-        0;
-        -1/(long*M)];
-Mat_C=[1 0 0 0;
-       0 0 1 0];
+alfa(1)=x(1); fi(1)=x(2); fi_p(1)=x(3); altura(1)=x(4);
+
+Mat_Ac=[-a a 0 0;
+         0 0 1 0;
+        w^2 -w^2 0 0;
+         c 0 0 0]
+Mat_Bc=[ 0;
+         0;
+         b*w^2;
+         0]
+Mat_C=[ 0 0 0 1;
+        0 1 0 0];
 
 sys_c=ss(Mat_Ac,Mat_Bc,Mat_C,0);
 sys_d=c2d(sys_c,Ts,'zoh');
@@ -98,7 +98,10 @@ a3=-A_controlable(4,2);
 a2=-A_controlable(4,3);
 a1=-A_controlable(4,4);
 
-q1=1e2;q2=1e2;q3=2e3;q4=1e2;
+q1=1e1; #Dirección de Vuelo
+q2=1e2; #Ángulo de Inclinacion
+q3=2e-2; #Velocidad de Inclinacion
+q4=1e1; #Altura
 R=1e0;
 
 p1=.5*(-4*a4*R+sqrt((4*a4*R)^2+16*q1*R)); %%Ec 7-80
@@ -108,8 +111,13 @@ p4=.5*(-3*a1*R+sqrt((3*a1*R)^2+8*q4*R)); %%Ec 7-85
 
 K=(([p1 p2 p3 p4])/(2*R))*inv(Mat_T); %%Ec 7-88
 
-eig(Mat_Ac-Mat_Bc*K) %%Autovalores del sistema realimentado
 
+if any(real(eig(Mat_Ac-Mat_Bc*K))>0) %%Autovalores del sistema realimentado
+  eig(Mat_Ac-Mat_Bc*K)
+  error("SISTEMA INESTABLE");
+else
+  eig(Mat_Ac-Mat_Bc*K)
+endif
 ##----- Simulación -----##
 u=zeros(Realizaciones,kmax);
 y_sal=zeros(Realizaciones,kmax);
@@ -119,10 +127,10 @@ for trial=1:Realizaciones %Empieza el Monte Carlo
   v=randn(4,kmax);%Señales aleatorios de media nula y varianza unidad.
   w=randn(2,kmax);
   x=x0+F_*v(:,1);
-  p(trial,1)=x0(1);
-  p_p(trial,1)=x0(2);
-  alfa(trial,1)=x0(3);
-  omega(trial,1)=x0(4);
+  alfa(trial,1)=x0(1);
+  fi(trial,1)=x0(2);
+  fi_p(trial,1)=x0(3);
+  altura(trial,1)=x0(4);
   x_hat=zeros(size(x0));
   x_hat_=x_hat;
 
@@ -131,16 +139,18 @@ for trial=1:Realizaciones %Empieza el Monte Carlo
 
     x_hat=x_hat_+K_Kalman*(Y-Mat_C*x_hat_); #Estimador de Kalman
 
-    u(trial,ki)=-K*x_hat;#HJB del sistema
-    x=mopdm(Ts,x,u(trial,ki))+F_*v(:,ki);
+    u(trial,ki)=-K*x_hat; #HJB del sistema
+    u(trial,ki) = max(min(u(trial,ki), 0.3), -0.3); #Se limita la acción de control
 
-    x_hat_=Mat_A*x_hat+Mat_B*u(trial,ki);#Estimador de Kalman
+    x=modavion(Ts,x,u(trial,ki))+F_*v(:,ki);
+
+    x_hat_=Mat_A*x_hat+Mat_B*u(trial,ki); #Estimador de Kalman
 
 
-    p(trial,ki+1)=x(1);
-    p_p(trial,ki+1)=x(2);
-    alfa(trial,ki+1)=x(3);
-    omega(trial,ki+1)=x(4);
+    alfa(trial,ki+1)=x(1);
+    fi(trial,ki+1)=x(2);
+    fi_p(trial,ki+1)=x(3);
+    altura(trial,ki+1)=x(4);
 
   end
 
@@ -151,29 +161,29 @@ t=t*Ts;
 
 ##----- Ploteos -----##
 figure(1);hold on;
-subplot(3,2,1);
-hold on;grid on; title('Velocidad ángulo','FontSize',TamanioFuente-1);
-plot(t,mean(omega),colorc);
-plot(t,mean(omega)+.5*sqrt(var(omega)),["--",colorc]);
-plot(t,mean(omega)-.5*sqrt(var(omega)),["--",colorc]);
-
-subplot(3,2,2);
-hold on;grid on;title('Ángulo','FontSize',TamanioFuente-1);
+subplot(3,1,1);
+hold on;grid on; title('Direccion de vuelo','FontSize',TamanioFuente-1);
 plot(t,mean(alfa),colorc);
 plot(t,mean(alfa)+.5*sqrt(var(alfa)),["--",colorc]);
-plot(t,mean(alfa)-.5*sqrt(var(alfa)),["--",colorc]);
+plot(t,mean(alfa)- .5*sqrt(var(alfa)),["--",colorc]);
+##
+##subplot(3,2,2);
+##hold on;grid on;title('Inclinacion del avion','FontSize',TamanioFuente-1);
+##plot(t,mean(fi),colorc);
+##plot(t,mean(fi)+.5*sqrt(var(fi)),["--",colorc]);
+##plot(t,mean(fi)-.5*sqrt(var(fi)),["--",colorc]);
 
-subplot(3,2,3);
-grid on;title('Posición carro','FontSize',TamanioFuente-1);hold on;
-plot(t,mean(p),colorc);
-plot(t,mean(p)+.5*sqrt(var(p)),["--",colorc]);
-plot(t,mean(p)-.5*sqrt(var(p)),["--",colorc]);
+##subplot(3,2,3);
+##grid on;title('Velocidad de inclinacion','FontSize',TamanioFuente-1);hold on;
+##plot(t,mean(fi_p),colorc);
+##plot(t,mean(fi_p)+.5*sqrt(var(fi_p)),["--",colorc]);
+##plot(t,mean(fi_p)- .5*sqrt(var(fi_p)),["--",colorc]);
 
-subplot(3,2,4);
-hold on; grid on;title('Velocidad carro','FontSize',TamanioFuente-1);hold on;
-plot(t,mean(p_p),colorc);
-plot(t,mean(p_p)+.5*sqrt(var(p_p)),["--",colorc]);
-plot(t,mean(p_p)-.5*sqrt(var(p_p)),["--",colorc]);
+subplot(3,1,2);
+hold on; grid on;title('Altura','FontSize',TamanioFuente-1);hold on;
+plot(t,mean(altura),colorc);
+plot(t,mean(altura)+.5*sqrt(var(altura)),["--",colorc]);
+plot(t,mean(altura)- .5*sqrt(var(altura)),["--",colorc]);
 
 subplot(3,1,3);
 grid on;title('Acción de control','FontSize',TamanioFuente-1);xlabel('Tiempo en Seg.','FontSize',TamanioFuente-1);hold on;
@@ -181,4 +191,3 @@ plot(t,mean(u),colorc);
 plot(t,mean(u)+.5*sqrt(var(u)),["--",colorc]);
 plot(t,mean(u)-.5*sqrt(var(u)),["--",colorc]);
 
-axes( 'visible', 'off', 'title', ['Pendulo Invertido, Angulo inicial \Phi= ',num2str(alfa(1))],"FontSize",TamanioFuente );
